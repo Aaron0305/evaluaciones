@@ -81,72 +81,99 @@ export default function LoginForm() {
 
   return (
     /* ── Double-Bezel Outer Shell (Frosted Glass Frame) ── */
-    <div className="rounded-[2.2rem] p-[1.5px] bg-gradient-to-br from-white/70 via-white/20 to-white/40 dark:from-white/15 dark:via-white/5 dark:to-white/10 shadow-[0_24px_50px_-12px_rgba(0,38,100,0.18)] dark:shadow-[0_24px_50px_-12px_rgba(0,0,0,0.65)] backdrop-blur-3xl">
+    <div className="w-full max-w-[420px] sm:max-w-md mx-auto rounded-3xl sm:rounded-[2.2rem] p-[1.5px] bg-gradient-to-br from-white/70 via-white/20 to-white/40 dark:from-white/15 dark:via-white/5 dark:to-white/10 shadow-[0_20px_45px_-12px_rgba(0,38,100,0.18)] dark:shadow-[0_24px_50px_-12px_rgba(0,0,0,0.65)] backdrop-blur-3xl">
       {/* ── Inner Translucent Glass Card ── */}
-      <div className="relative w-full overflow-hidden rounded-[calc(2.2rem-1.5px)] glass-card p-7 sm:p-9">
+      <div className="relative w-full overflow-hidden rounded-[calc(1.5rem-1px)] sm:rounded-[calc(2.2rem-1.5px)] glass-card p-5 sm:p-9">
         {/* Subtle shimmer accent across the top */}
-        <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/80 dark:via-sky-400/40 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/80 dark:via-sky-400/40 to-transparent z-10" />
 
-        {/* ── Header: Logo + Badge ── */}
-        <div className="flex items-center justify-between mb-7 animate-fade-up stagger-2">
-          <div className="relative h-12 w-12 overflow-hidden rounded-xl bg-white/60 dark:bg-white/10 backdrop-blur-md p-1.5 border border-white/60 dark:border-white/15 shadow-sm">
+        {/* ── Mobile Mascot Watermark (Translucent & Bottom Faded — Mobile Only) ── */}
+        <div
+          className="pointer-events-none select-none absolute inset-0 z-0 overflow-hidden lg:hidden flex items-start justify-center pt-3"
+          aria-hidden="true"
+        >
+          <div
+            className="relative w-64 h-64 sm:w-72 sm:h-72 opacity-[0.16] dark:opacity-[0.20] transition-opacity duration-300"
+            style={{
+              maskImage:
+                "linear-gradient(to bottom, rgba(0,0,0,1) 15%, rgba(0,0,0,0.65) 48%, rgba(0,0,0,0.15) 75%, transparent 95%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, rgba(0,0,0,1) 15%, rgba(0,0,0,0.65) 48%, rgba(0,0,0,0.15) 75%, transparent 95%)",
+            }}
+          >
             <Image
-              src="/image/logo_mensaje.png"
-              alt="What Time Is It? Idiomas"
+              src="/image/mascota_hde.png"
+              alt=""
               fill
-              className="object-contain p-1"
               priority
               unoptimized
+              className="object-contain object-top"
             />
           </div>
-          <span
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em]"
-            style={{
-              background:
-                "linear-gradient(135deg, rgba(0,62,126,0.08), rgba(14,86,168,0.12))",
-              color: "var(--brand-blue)",
-              border: "1px solid rgba(0,62,126,0.15)",
-            }}
-          >
-            <Sparkles className="h-3 w-3 text-brand-gold" />
-            Portal Académico
-          </span>
         </div>
 
-        {/* ── Title ── */}
-        <div className="animate-fade-up stagger-3">
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground">
-            Iniciar Sesión
-          </h1>
-          <p className="mt-1.5 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-            Ingresa tus credenciales para acceder a tus clases
-          </p>
-        </div>
-
-        {/* ── Feedback Alert ── */}
-        {feedbackMessage && (
-          <div
-            role="alert"
-            className={`mt-5 flex items-center gap-2.5 rounded-xl p-4 text-xs font-medium animate-fade-scale ${
-              feedbackMessage.type === "error"
-                ? "bg-red-50/80 text-red-700 ring-1 ring-red-200/60 dark:bg-red-950/30 dark:text-red-300 dark:ring-red-900/40"
-                : "bg-emerald-50/80 text-emerald-700 ring-1 ring-emerald-200/60 dark:bg-emerald-950/30 dark:text-emerald-300 dark:ring-emerald-900/40"
-            }`}
-            style={{
-              backdropFilter: "blur(12px)",
-            }}
-          >
-            {feedbackMessage.type === "error" ? (
-              <AlertCircle className="h-4 w-4 shrink-0" />
-            ) : (
-              <CheckCircle2 className="h-4 w-4 shrink-0" />
-            )}
-            <span>{feedbackMessage.text}</span>
+        {/* ── Content Container (Ensures interactive elements sit above the watermark) ── */}
+        <div className="relative z-10">
+          {/* ── Header: Logo + Badge ── */}
+          <div className="flex items-center justify-between mb-5 sm:mb-7 animate-fade-up stagger-2">
+            <div className="relative h-11 w-11 sm:h-12 sm:w-12 overflow-hidden rounded-xl bg-white/60 dark:bg-white/10 backdrop-blur-md p-1.5 border border-white/60 dark:border-white/15 shadow-sm">
+              <Image
+                src="/image/logo_mensaje.png"
+                alt="What Time Is It? Idiomas"
+                fill
+                className="object-contain p-1"
+                priority
+                unoptimized
+              />
+            </div>
+            <span
+              className="inline-flex items-center gap-1.5 rounded-full px-2.5 sm:px-3 py-1 sm:py-1.5 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.15em]"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(0,62,126,0.08), rgba(14,86,168,0.12))",
+                color: "var(--brand-blue)",
+                border: "1px solid rgba(0,62,126,0.15)",
+              }}
+            >
+              <Sparkles className="h-3 w-3 text-brand-gold" />
+              Portal Académico
+            </span>
           </div>
-        )}
+
+          {/* ── Title ── */}
+          <div className="animate-fade-up stagger-3">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-black tracking-tight text-foreground">
+              Iniciar Sesión
+            </h1>
+            <p className="mt-1 sm:mt-1.5 text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+              Ingresa tus credenciales para acceder a tus clases
+            </p>
+          </div>
+
+          {/* ── Feedback Alert ── */}
+          {feedbackMessage && (
+            <div
+              role="alert"
+              className={`mt-4 sm:mt-5 flex items-center gap-2.5 rounded-xl p-3.5 sm:p-4 text-xs font-medium animate-fade-scale ${
+                feedbackMessage.type === "error"
+                  ? "bg-red-50/80 text-red-700 ring-1 ring-red-200/60 dark:bg-red-950/30 dark:text-red-300 dark:ring-red-900/40"
+                  : "bg-emerald-50/80 text-emerald-700 ring-1 ring-emerald-200/60 dark:bg-emerald-950/30 dark:text-emerald-300 dark:ring-emerald-900/40"
+              }`}
+              style={{
+                backdropFilter: "blur(12px)",
+              }}
+            >
+              {feedbackMessage.type === "error" ? (
+                <AlertCircle className="h-4 w-4 shrink-0" />
+              ) : (
+                <CheckCircle2 className="h-4 w-4 shrink-0" />
+              )}
+              <span>{feedbackMessage.text}</span>
+            </div>
+          )}
 
         {/* ── Form ── */}
-        <form onSubmit={handleFormSubmit} className="mt-7 space-y-5">
+        <form onSubmit={handleFormSubmit} className="mt-5 sm:mt-7 space-y-4 sm:space-y-5">
           {/* Email */}
           <div className="space-y-2 animate-fade-up stagger-4">
             <label
@@ -278,11 +305,12 @@ export default function LoginForm() {
         </form>
 
         {/* Bottom decorative line */}
-        <div className="mt-7 h-px bg-gradient-to-r from-transparent via-zinc-200/60 to-transparent dark:via-zinc-700/40" />
-        <p className="mt-4 text-center text-[11px] text-zinc-400 dark:text-zinc-600">
+        <div className="mt-5 sm:mt-7 h-px bg-gradient-to-r from-transparent via-zinc-200/60 to-transparent dark:via-zinc-700/40" />
+        <p className="mt-3.5 sm:mt-4 text-center text-[11px] text-zinc-400 dark:text-zinc-600">
           © {new Date().getFullYear()} What Time Is It? Idiomas
         </p>
       </div>
     </div>
+  </div>
   );
 }

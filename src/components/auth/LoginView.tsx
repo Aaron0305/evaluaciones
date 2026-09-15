@@ -7,17 +7,17 @@ import AnimatedBackground from "@/components/ui/AnimatedBackground";
 
 export default function LoginView() {
   return (
-    <div className="relative flex flex-1 items-center justify-center min-h-[calc(100dvh-3.5rem)] py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <div className="relative flex flex-1 items-center justify-center min-h-[calc(100dvh-3.5rem)] py-6 sm:py-10 px-3.5 sm:px-6 lg:px-8 overflow-hidden">
       {/* Premium animated background layer */}
       <AnimatedBackground />
 
       {/* Main content — layered above background */}
-      <div className="relative z-10 w-full max-w-5xl flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-20">
+      <div className="relative z-10 w-full max-w-5xl flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-20">
 
         {/* ────────────────────────────────────────
-            LEFT: Mascot & Branding Section
+            LEFT: Mascot & Branding Section (Desktop only)
             ──────────────────────────────────────── */}
-        <div className="flex flex-col items-center text-center max-w-sm animate-fade-up stagger-1">
+        <div className="hidden lg:flex flex-col items-center text-center max-w-sm animate-fade-up stagger-1">
 
           {/* Speech bubble with brand accent */}
           <div

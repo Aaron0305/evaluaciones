@@ -38,6 +38,12 @@ Registro cronológico detallado de las solicitudes del usuario, desafíos técni
 - **Navbar:** Se convirtió en scroll-aware (`isScrolled`). En reposo es 100% transparente para no cortar el fondo con franjas oscuras; al hacer scroll activa un vidrio esmerilado translúcido donde el login se ve deslizarse por debajo.
 - **Tarjeta de Login:** Se transformó el bloque blanco sólido en un panel de cristal esmerilado translúcido con desenfoque de `28px` y bisel doble, permitiendo ver las ondas del fondo fluyendo sutilmente por detrás.
 
+### Fase 6: Adaptación Responsiva Móvil y Marca de Agua de Mascota
+- **Ocultamiento de Columna en Móvil:** En pantallas pequeñas (`< lg`), la columna izquierda de la mascota se oculta (`hidden lg:flex`) para que el formulario de inicio de sesión no sea empujado hacia abajo ni requiera scroll vertical forzado.
+- **Mascota Translúcida en el Fondo del Login (Móvil Únicamente):** Se integró la mascota dentro de la tarjeta de inicio de sesión de forma translúcida (`opacity-[0.16]` claro / `0.20` oscuro) con máscara de desvanecido inferior degradado (`mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 15%, rgba(0,0,0,0.65) 48%, rgba(0,0,0,0.15) 75%, transparent 95%)`).
+- **Seguridad de Capas e Interacción:** La marca de agua tiene `pointer-events-none z-0 lg:hidden`, mientras que inputs, botones y textos se mantienen en `relative z-10` con legibilidad y contraste óptimos.
+- **Optimización de Ergonomía Móvil:** Espaciado y padding ajustados (`p-5 sm:p-9`, `space-y-4 sm:space-y-5`) cumpliendo con las áreas mínimas de pulsación táctil (48px de alto).
+
 ---
 
 ## 2. Estado Actual del Sistema
