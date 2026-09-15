@@ -1,26 +1,467 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ──────────────────────────────────────────────
+   DESIGN TOKENS
+   ────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --brand-blue: #003e7e;
+  --brand-blue-vibrant: #0e56a8;
+  --brand-red: #e11d2a;
+  --brand-gold: #ffb703;
+  --surface: rgba(255, 255, 255, 0.85);
+  --surface-border: rgba(0, 0, 0, 0.06);
+  --card-shadow: 0 8px 32px rgba(0, 62, 126, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+
+  /* Premium easing curves (Emil Kowalski) */
+  --ease-out-expo: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-smooth: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.dark {
+  --background: #050508;
+  --foreground: #f1f5f9;
+  --brand-blue: #38bdf8;
+  --brand-blue-vibrant: #60a5fa;
+  --brand-red: #f87171;
+  --brand-gold: #fbbf24;
+  --surface: rgba(15, 17, 25, 0.75);
+  --surface-border: rgba(255, 255, 255, 0.06);
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-vibrant: var(--brand-blue-vibrant);
+  --color-brand-red: var(--brand-red);
+  --color-brand-gold: var(--brand-gold);
+  --color-surface: var(--surface);
+  --color-surface-border: var(--surface-border);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ──────────────────────────────────────────────
+   ANIMATED ORB BACKGROUNDS
+   ────────────────────────────────────────────── */
+@keyframes orb-float-1 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate(80px, -60px) scale(1.15);
+  }
+
+  50% {
+    transform: translate(-40px, 40px) scale(0.95);
+  }
+
+  75% {
+    transform: translate(60px, 80px) scale(1.1);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes orb-float-2 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate(-100px, 50px) scale(1.1);
+  }
+
+  50% {
+    transform: translate(60px, -80px) scale(0.9);
+  }
+
+  75% {
+    transform: translate(-30px, -40px) scale(1.05);
+  }
+}
+
+@keyframes orb-float-3 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(50px, 70px) scale(1.2);
+  }
+
+  66% {
+    transform: translate(-70px, -30px) scale(0.85);
+  }
+}
+
+@keyframes orb-pulse {
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes rotate-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ──────────────────────────────────────────────
+   STAGGERED ENTRANCE ANIMATIONS
+   ────────────────────────────────────────────── */
+@keyframes fade-up-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes fade-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+    filter: blur(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes slide-right-in {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes glow-ring {
+
+  0%,
+  100% {
+    box-shadow: 0 0 15px rgba(0, 62, 126, 0.2), 0 0 30px rgba(225, 29, 42, 0.1), 0 0 45px rgba(255, 183, 3, 0.05);
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgba(0, 62, 126, 0.35), 0 0 40px rgba(225, 29, 42, 0.2), 0 0 60px rgba(255, 183, 3, 0.15);
+  }
+}
+
+.dark .glow-ring-animated {
+  animation: glow-ring-dark 4s ease-in-out infinite;
+}
+
+@keyframes glow-ring-dark {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.15), 0 0 40px rgba(248, 113, 113, 0.08), 0 0 60px rgba(251, 191, 36, 0.05);
+  }
+
+  50% {
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.3), 0 0 55px rgba(248, 113, 113, 0.15), 0 0 80px rgba(251, 191, 36, 0.1);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up-in 800ms var(--ease-out-expo) both;
+}
+
+.animate-fade-scale {
+  animation: fade-scale-in 700ms var(--ease-out-expo) both;
+}
+
+.animate-slide-right {
+  animation: slide-right-in 600ms var(--ease-out-expo) both;
+}
+
+/* Stagger delay utilities */
+.stagger-1 {
+  animation-delay: 0ms;
+}
+
+.stagger-2 {
+  animation-delay: 80ms;
+}
+
+.stagger-3 {
+  animation-delay: 160ms;
+}
+
+.stagger-4 {
+  animation-delay: 240ms;
+}
+
+.stagger-5 {
+  animation-delay: 320ms;
+}
+
+.stagger-6 {
+  animation-delay: 400ms;
+}
+
+.stagger-7 {
+  animation-delay: 480ms;
+}
+
+/* ──────────────────────────────────────────────
+   FLOATING PARTICLES
+   ────────────────────────────────────────────── */
+@keyframes particle-rise {
+  0% {
+    transform: translateY(0) translateX(0) scale(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+    transform: translateY(-10vh) translateX(5px) scale(1);
+  }
+
+  90% {
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translateY(-100vh) translateX(-10px) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* ──────────────────────────────────────────────
+   AURORA BOREALIS — Curtain Sway Animations
+   Realistic undulating motion for aurora ribbons.
+   Each curtain sways independently with different
+   speeds, directions, and subtle scale pulsing.
+   ────────────────────────────────────────────── */
+@keyframes aurora-sway-1 {
+  0% {
+    transform: translateX(0) skewX(0deg) scaleY(1);
+  }
+
+  20% {
+    transform: translateX(4%) skewX(2deg) scaleY(1.04);
+  }
+
+  40% {
+    transform: translateX(-3%) skewX(-1deg) scaleY(0.97);
+  }
+
+  60% {
+    transform: translateX(5%) skewX(3deg) scaleY(1.06);
+  }
+
+  80% {
+    transform: translateX(-2%) skewX(-2deg) scaleY(0.98);
+  }
+
+  100% {
+    transform: translateX(0) skewX(0deg) scaleY(1);
+  }
+}
+
+@keyframes aurora-sway-2 {
+  0% {
+    transform: translateX(0) skewX(0deg) scaleX(1);
+  }
+
+  25% {
+    transform: translateX(-5%) skewX(-3deg) scaleX(1.05);
+  }
+
+  50% {
+    transform: translateX(3%) skewX(1.5deg) scaleX(0.96);
+  }
+
+  75% {
+    transform: translateX(-4%) skewX(-2deg) scaleX(1.03);
+  }
+
+  100% {
+    transform: translateX(0) skewX(0deg) scaleX(1);
+  }
+}
+
+@keyframes aurora-sway-3 {
+  0% {
+    transform: translateX(0) skewX(0deg) scaleY(1);
+  }
+
+  30% {
+    transform: translateX(6%) skewX(2.5deg) scaleY(1.05);
+  }
+
+  60% {
+    transform: translateX(-4%) skewX(-1.5deg)scaleY(0.95);
+  }
+
+  100% {
+    transform: translateX(0) skewX(0deg) scaleY(1);
+  }
+}
+
+@keyframes aurora-glow-pulse {
+
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ── Dark Mode: auroras are more vivid on dark backgrounds ── */
+.dark .aurora-curtain-1 {
+  background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(0, 62, 126, 0.05) 10%,
+      rgba(56, 189, 248, 0.25) 25%,
+      rgba(96, 165, 250, 0.30) 40%,
+      rgba(56, 189, 248, 0.20) 55%,
+      rgba(96, 165, 250, 0.10) 70%,
+      transparent 85%) !important;
+}
+
+.dark .aurora-curtain-2 {
+  background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(248, 113, 113, 0.04) 15%,
+      rgba(248, 113, 113, 0.18) 30%,
+      rgba(248, 113, 113, 0.22) 45%,
+      rgba(248, 113, 113, 0.12) 60%,
+      rgba(248, 113, 113, 0.05) 75%,
+      transparent 90%) !important;
+}
+
+.dark .aurora-curtain-3 {
+  background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(251, 191, 36, 0.03) 20%,
+      rgba(251, 191, 36, 0.14) 35%,
+      rgba(251, 191, 36, 0.18) 50%,
+      rgba(251, 191, 36, 0.10) 65%,
+      rgba(251, 191, 36, 0.04) 80%,
+      transparent 95%) !important;
+}
+
+/* ──────────────────────────────────────────────
+   GLASS CARD
+   ────────────────────────────────────────────── */
+.glass-card {
+  background: var(--surface);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--card-shadow);
+}
+
+/* ──────────────────────────────────────────────
+   PREMIUM INPUT FOCUS
+   ────────────────────────────────────────────── */
+.input-premium {
+  transition: all 200ms var(--ease-out-expo);
+}
+
+.input-premium:focus {
+  box-shadow: 0 0 0 4px rgba(0, 62, 126, 0.12), 0 2px 12px rgba(0, 62, 126, 0.08);
+}
+
+.dark .input-premium:focus {
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15), 0 2px 12px rgba(56, 189, 248, 0.08);
+}
+
+/* ──────────────────────────────────────────────
+   BUTTON PRESS PHYSICS
+   ────────────────────────────────────────────── */
+.btn-press {
+  transition: transform 160ms var(--ease-out-expo), box-shadow 200ms var(--ease-out-expo);
+}
+
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* ──────────────────────────────────────────────
+   NOISE OVERLAY (FILM GRAIN)
+   ────────────────────────────────────────────── */
+.noise-overlay::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* ──────────────────────────────────────────────
+   REDUCED MOTION
+   ────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
