@@ -80,22 +80,16 @@ export default function LoginForm() {
   };
 
   return (
-    /* ── Double-Bezel Outer Shell ── */
-    <div className="rounded-[2rem] p-[3px] bg-gradient-to-br from-white/20 via-white/5 to-white/10 dark:from-white/[0.08] dark:via-white/[0.02] dark:to-white/[0.06]">
-      {/* ── Inner Glass Card ── */}
-      <div
-        className="relative w-full overflow-hidden rounded-[calc(2rem-3px)] glass-card p-7 sm:p-9"
-        style={{
-          boxShadow:
-            "var(--card-shadow), inset 0 1px 1px rgba(255,255,255,0.1)",
-        }}
-      >
-        {/* Subtle shimmer effect across the top */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-gold/40 to-transparent" />
+    /* ── Double-Bezel Outer Shell (Frosted Glass Frame) ── */
+    <div className="rounded-[2.2rem] p-[1.5px] bg-gradient-to-br from-white/70 via-white/20 to-white/40 dark:from-white/15 dark:via-white/5 dark:to-white/10 shadow-[0_24px_50px_-12px_rgba(0,38,100,0.18)] dark:shadow-[0_24px_50px_-12px_rgba(0,0,0,0.65)] backdrop-blur-3xl">
+      {/* ── Inner Translucent Glass Card ── */}
+      <div className="relative w-full overflow-hidden rounded-[calc(2.2rem-1.5px)] glass-card p-7 sm:p-9">
+        {/* Subtle shimmer accent across the top */}
+        <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/80 dark:via-sky-400/40 to-transparent" />
 
         {/* ── Header: Logo + Badge ── */}
         <div className="flex items-center justify-between mb-7 animate-fade-up stagger-2">
-          <div className="relative h-12 w-12 overflow-hidden rounded-xl bg-white/80 dark:bg-zinc-800/80 p-1.5 ring-1 ring-black/5 dark:ring-white/10">
+          <div className="relative h-12 w-12 overflow-hidden rounded-xl bg-white/60 dark:bg-white/10 backdrop-blur-md p-1.5 border border-white/60 dark:border-white/15 shadow-sm">
             <Image
               src="/image/logo_mensaje.png"
               alt="What Time Is It? Idiomas"
@@ -174,7 +168,7 @@ export default function LoginForm() {
                 placeholder="estudiante@idiomas.com"
                 value={formData.email}
                 onChange={(e) => updateFormField("email", e.target.value)}
-                className="input-premium w-full rounded-xl border border-zinc-200/80 bg-white/60 py-3 pl-11 pr-4 text-sm text-foreground placeholder:text-zinc-400 focus:border-brand-blue focus:outline-none dark:border-zinc-700/60 dark:bg-zinc-800/40 dark:placeholder:text-zinc-600"
+                className="input-premium w-full rounded-xl border border-white/70 bg-white/45 py-3 pl-11 pr-4 text-sm text-foreground placeholder:text-zinc-400 focus:border-brand-blue focus:bg-white/75 focus:outline-none backdrop-blur-md shadow-[inset_0_1px_2px_rgba(0,0,0,0.03)] transition-all duration-200 dark:border-white/10 dark:bg-white/5 dark:focus:bg-white/10 dark:placeholder:text-zinc-500"
               />
             </div>
           </div>
@@ -200,7 +194,7 @@ export default function LoginForm() {
                 placeholder="••••••••"
                 value={formData.password}
                 onChange={(e) => updateFormField("password", e.target.value)}
-                className="input-premium w-full rounded-xl border border-zinc-200/80 bg-white/60 py-3 pl-11 pr-12 text-sm text-foreground placeholder:text-zinc-400 focus:border-brand-blue focus:outline-none dark:border-zinc-700/60 dark:bg-zinc-800/40 dark:placeholder:text-zinc-600"
+                className="input-premium w-full rounded-xl border border-white/70 bg-white/45 py-3 pl-11 pr-12 text-sm text-foreground placeholder:text-zinc-400 focus:border-brand-blue focus:bg-white/75 focus:outline-none backdrop-blur-md shadow-[inset_0_1px_2px_rgba(0,0,0,0.03)] transition-all duration-200 dark:border-white/10 dark:bg-white/5 dark:focus:bg-white/10 dark:placeholder:text-zinc-500"
               />
               <button
                 type="button"
