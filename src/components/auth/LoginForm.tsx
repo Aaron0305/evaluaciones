@@ -87,18 +87,31 @@ export default function LoginForm() {
         {/* Subtle shimmer accent across the top */}
         <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/80 dark:via-sky-400/40 to-transparent z-10" />
 
-        {/* ── Mobile Mascot Watermark (Translucent & Bottom Faded — Mobile Only) ── */}
+        {/* ── Mobile Mascot Watermark (Centered, Translucent & Atmospheric — Mobile Only) ── */}
         <div
-          className="pointer-events-none select-none absolute inset-0 z-0 overflow-hidden lg:hidden flex items-start justify-center pt-3"
+          className="pointer-events-none select-none absolute inset-0 z-0 overflow-hidden lg:hidden flex items-center justify-center"
           aria-hidden="true"
         >
+          {/* Soft ambient aura so the watermark feels luminous and intentional, not flat */}
           <div
-            className="relative w-64 h-64 sm:w-72 sm:h-72 opacity-[0.16] dark:opacity-[0.20] transition-opacity duration-300"
+            className="absolute w-64 h-64 rounded-full pointer-events-none"
             style={{
+              background:
+                "radial-gradient(circle, rgba(14,86,168,0.20) 0%, rgba(56,189,248,0.10) 45%, transparent 72%)",
+              filter: "blur(30px)",
+            }}
+          />
+
+          {/* Centered mascot with vibrant colors and delicate bottom fade */}
+          <div
+            className="relative w-72 h-72 sm:w-80 sm:h-80 opacity-[0.20] dark:opacity-[0.26] transition-opacity duration-300"
+            style={{
+              filter:
+                "drop-shadow(0 12px 28px rgba(0,62,126,0.18)) saturate(125%) contrast(106%)",
               maskImage:
-                "linear-gradient(to bottom, rgba(0,0,0,1) 15%, rgba(0,0,0,0.65) 48%, rgba(0,0,0,0.15) 75%, transparent 95%)",
+                "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 56%, rgba(0,0,0,0.4) 80%, transparent 98%)",
               WebkitMaskImage:
-                "linear-gradient(to bottom, rgba(0,0,0,1) 15%, rgba(0,0,0,0.65) 48%, rgba(0,0,0,0.15) 75%, transparent 95%)",
+                "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 56%, rgba(0,0,0,0.4) 80%, transparent 98%)",
             }}
           >
             <Image
@@ -107,7 +120,7 @@ export default function LoginForm() {
               fill
               priority
               unoptimized
-              className="object-contain object-top"
+              className="object-contain object-center"
             />
           </div>
         </div>
