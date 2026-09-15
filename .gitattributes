@@ -1,0 +1,5 @@
+# Mark agent skills and internal scripts as vendored tooling (not project source code)
+.agents/** linguist-vendored
+
+# Mark Obsidian vault as documentation
+vault/** linguist-documentation
